@@ -1,0 +1,44 @@
+
+public class Solution {
+	public static void main (String ... args) {
+		ListNode head;
+		ListNode tail = new ListNode(8);
+		for (int i = 7; i > 0; i--) {
+			ListNode node = new ListNode(i);
+			node.next = tail;
+			tail = node;
+			if (i == 1) {
+				head = node;
+			}
+		}
+		oddEvenList(head);
+	}
+    public static ListNode oddEvenList(ListNode head) {
+        if(head==null || head.next == null || head.next.next == null) {
+            return head;
+        }
+        
+        ListNode evenHead = head.next;
+        
+        ListNode oddTail = evenHead.next;
+        ListNode evenTail = oddTail.next;
+        head.next = oddTail;
+        evenHead.next = evenTail;
+        while (evenTail!=null&&evenTail.next!=null) {
+            oddTail.next=evenTail.next;
+            evenTail.next=oddTail.next;
+            oddTail = oddTail.next;
+            evenTail = evenTail.next;
+        }
+        oddTail.next = evenHead;
+		while (head.next != null){
+			System.out.println(head.val);
+		}
+        return head;
+    }
+	public static class ListNode {
+        int val;
+        ListNode next;
+        ListNode(int x) { val = x; }
+    }
+}
